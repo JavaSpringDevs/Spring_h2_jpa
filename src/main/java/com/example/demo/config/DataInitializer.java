@@ -17,8 +17,10 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 	
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
+		//encontra todos os registros da entidade em forma de lista de objetos
 		List<User> users = userRepository.findAll();
 		
+		//inicia e cria cadastro nos bancos
 		if(users.isEmpty()) 
 		{
 			createUser("pietro ", " pietrodipaulo4@gmail.com");
@@ -26,8 +28,11 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 			createUser("maria", "maria@gmail.com");
 ;
 		}
+		// seleciona uma linha da tabela
 		User user = userRepository.getOne(2l);
+		user.setName("josé");
 		System.out.println(user.getName());
+		userRepository.save(user);
 	}
 	public void  createUser(String nome, String email) {
 		User user = new User(nome, email);
