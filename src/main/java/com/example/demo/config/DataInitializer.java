@@ -1,7 +1,6 @@
 package com.example.demo.config;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -22,12 +21,17 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 		
 		if(users.isEmpty()) 
 		{
-			User user = new User();
-			user.setEmail("Pietrodipaulo4@gmail.com");
-			user.setName("pietro");
-		
-			userRepository.save(user);
+			createUser("pietro ", " pietrodipaulo4@gmail.com");
+			createUser("joão", "joão@gmail.com");
+			createUser("maria", "maria@gmail.com");
+;
 		}
+		User user = userRepository.getOne(2l);
+		System.out.println(user.getName());
+	}
+	public void  createUser(String nome, String email) {
+		User user = new User(nome, email);
+				userRepository.save(user);
 	}
 
 }
